@@ -1,8 +1,4 @@
 dagen = ('maandag', 'dinsdag', 'woensdag')
 
-L = [item[0] for item in dagen]
-
-print(L)
-
-
-
+for i in dagen:
+    print(i[0:2])
