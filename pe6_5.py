@@ -3,6 +3,3 @@ def kwadraten_som(getallenLijst):
     return lijst
 
 print(kwadraten_som([3,4,5]))
-
-
-

@@ -1,7 +1,10 @@
 print('Met de kleine onderstaande programma kunt u uw reiskosten berekenen, veel succes. \n')
 
 def standaardprijs(afstandKM):
-    if afstandKM < 50:
+    if afstandKM <= 0:
+        print('Dit is niet mogelijk.')
+        prijs = 0
+    elif afstandKM < 50:
         prijs = afstandKM * 0.80
     else:
         prijs = 15 + afstandKM * 0.60
