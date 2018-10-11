@@ -10,6 +10,7 @@ def monopolyworp():
         print('Welcome!\nType something to start rolling the dices!')
         antwoord = input('Choice: ')
         if antwoord != '1':
+            print('You need to insert 1 to start rolling!')
             break
         if antwoord == '1':
             print('Now rolling ...\n')

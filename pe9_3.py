@@ -1,5 +1,4 @@
 cijfers = {'Redouan': 9.5, 'Hakan': 2.0, 'Jan': 6.0, 'Kees': 9.1, 'Ben': 8.0, 'Floor': 9.8, 'Daan': 4.0, 'Bas': 7.6}
-new_list = []
 
 
 naam = input('Voer je naam in om het behaalde cijfer te zien: ')
