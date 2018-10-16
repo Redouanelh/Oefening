@@ -32,3 +32,23 @@ for vertrek in vertrekXML['ActueleVertrekTijden']['VertrekkendeTrein']:
     else:
         pass
 
+
+
+
+
+
+with open('opdr11.3.csv', 'a', newline='') as csvv:
+    writer = csv.writer(csvv, delimiter=';')
+
+
+    while True:
+        naam = input("Geef je naam: ")
+        if naam == 'einde':
+            break
+        speeldatum = input("Geef je speeldatum: ")
+        score = input("Geef je score: ")
+
+        list.extend([naam, speeldatum, score])
+
+        writer.writerow(list)
+        break

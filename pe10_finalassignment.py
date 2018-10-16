@@ -2,7 +2,7 @@ stations = ['Schagen', 'Heerhugowaard', 'Alkmaar', 'Castricum', 'Zaandam', 'Amst
 
 def inlezen_beginstation(stations):
     while True:
-        begin = input('Voer uw beginstation in: ')
+        begin = input('Voer uw beginstation in: ').title()
         if begin not in stations:
             print('Voer een correcte stationsnaam in.')
         else:
@@ -11,7 +11,7 @@ def inlezen_beginstation(stations):
 
 def inlezen_eindstation(stations, begin):
     while True:
-        eind = input('Voer uw eindstation in: ')
+        eind = input('Voer uw eindstation in: ').title()
         if eind not in stations or stations.index(eind) < stations.index(begin):
             print('Voer een geldige stationsnaam in met een correct volgorde.')
         else:
