@@ -19,13 +19,16 @@ def inlezen_eindstation(stations, begin):
     return eind
 
 def omroepen_reis(stations, beginstation, eindstation):
-    shit = stations.index(beginstation) + 1
+    instap = stations.index(beginstation)
+    uitstap = stations.index(eindstation)
     print('Het beginstation', beginstation, 'is het', stations.index(beginstation), 'e station in het traject.')
     print('Het eindstation', eindstation, 'is het', stations.index(eindstation), 'e station in het traject.')
     print('De afstand bedraagt', stations.index(eindstation) - stations.index(beginstation), 'station(s).')
     print('De prijs van het kaartje is', 5 * (stations.index(eindstation) - stations.index(beginstation)), 'euro.')
     print(' ')
-    print('Jij stapt in de trein in: ', beginstation, '-', stations[shit])
+    print('Jij stapt in de trein in: ', beginstation,'.')
+    for i in range(instap + 1, uitstap):
+        print(stations[i])
     print(' ')
     print('Jij stapt uit in: ', eindstation)
 

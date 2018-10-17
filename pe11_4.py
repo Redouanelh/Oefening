@@ -33,10 +33,10 @@ with open('opdr11.4.csv', 'r') as information:
         if voorraad < min:
             min = voorraad
             name2 = row[0]
-        
+        new_list.append(int(row[3]))
 
-
-
+total = sum(new_list)
 
 print('Het duurste artikel is de {} met als prijs {},- euro.'.format(name, max))
 print('Er zijn slechts {} exemplaren in voorraad met nummer {}.'.format(min, name2))
+print('In totaal hebben wij {} producten in ons magazijn liggen.'.format(total))
