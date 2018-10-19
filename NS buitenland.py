@@ -2,14 +2,37 @@ import requests
 import xmltodict
 import datetime
 
-
-vandaag = datetime.datetime.now()
-datum = vandaag.strftime('%a %d %b %Y')
-tijd = vandaag.strftime('%H:%M')
-
 lijst = []
 
-def station_lijst_eind():
+def station_lijst_buitenland():
+    'Dit controleert of de ingevoerde station mogelijk is.'
+    auth_details = ('redouan_school@outlook.com', '2SV3LsPcPB2SD5acBQ3omnyrhmyddwQwZUIHUzSF6C9kqvVG45juXQ')
+    api_url = 'http://webservices.ns.nl/ns-api-stations?_ga=2.144939316.1633515006.1539776820-574820872.1539172714'
+
+    response = requests.get(api_url, auth=auth_details)
+
+    vertrekXML = xmltodict.parse(response.text)
+
+    while True:
+        station = input('Voer uw station in: ').title()
+        for x in vertrekXML['stations']['station']:
+            name = x['name']
+            country = x['country']
+            lijst.append(name)
+            lijst.append(country)
+
+        if station not in lijst:
+            print('Voer een geldig station in.')
+        else:
+            index = lijst.index(station)
+            land = index + 1
+            if lijst[land] != 'NL':
+                print('Alleen reizen plannen van Nederland naar het buitenland is van toepassing.')
+            else:
+                goed = station
+                return goed
+
+def station_lijst_buitenland_eind():
     'Dit controleert of de ingevoerde station mogelijk is.'
     auth_details = ('redouan_school@outlook.com', '2SV3LsPcPB2SD5acBQ3omnyrhmyddwQwZUIHUzSF6C9kqvVG45juXQ')
     api_url = 'http://webservices.ns.nl/ns-api-stations?_ga=2.144939316.1633515006.1539776820-574820872.1539172714'
@@ -30,20 +53,20 @@ def station_lijst_eind():
         else:
             index = lijst.index(station_eind)
             land = index + 1
-            if lijst[land] != 'NL':
-                print('Reizen naar het buitenland is hier niet van toepassing.')
+            if lijst[land] == 'NL':
+                print('Alleen reizen naar het buitenland is hier van toepassing.')
             else:
                 goed1 = station_eind
                 return goed1
 
 
-
-def nu_weg():
-    'Dit is de optie waarvoor wordt gekozen als de gebruiker kiest voor NU VERTREKKEN.'
-    stad_eind = station_lijst_eind()
+def buitenland():
+    'Dit is de optie waarvoor wordt gekozen als de gebruiker kiest voor het plannen van zijn/haar route.'
+    stad = station_lijst_buitenland()
+    stad_eind = station_lijst_buitenland_eind()
 
     auth_details = ('redouan_school@outlook.com', '2SV3LsPcPB2SD5acBQ3omnyrhmyddwQwZUIHUzSF6C9kqvVG45juXQ')
-    api_url = 'http://webservices.ns.nl/ns-api-avt?station=ut'
+    api_url = 'http://webservices.ns.nl/ns-api-avt?station={}'.format(stad)
 
     response = requests.get(api_url, auth=auth_details)
 
