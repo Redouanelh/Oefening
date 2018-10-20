@@ -8,14 +8,16 @@ vandaag = datetime.datetime.now()
 datum = vandaag.strftime('%a %d %b %Y')
 tijd = vandaag.strftime('%H:%M')
 lijst = []
+list = []
 
 
 def station_lijst():
-    'Dit controleert of de ingevoerde station mogelijk is.'
+    'Dit controleert of de ingevoerde station in Nederland is, en of het wel bestaat.'
     auth_details = ('redouan_school@outlook.com', '2SV3LsPcPB2SD5acBQ3omnyrhmyddwQwZUIHUzSF6C9kqvVG45juXQ')
     api_url = 'http://webservices.ns.nl/ns-api-stations?_ga=2.144939316.1633515006.1539776820-574820872.1539172714'
 
     response = requests.get(api_url, auth=auth_details)
+    'API oproepen'
 
     vertrekXML = xmltodict.parse(response.text)
 
@@ -39,11 +41,12 @@ def station_lijst():
                 return goed
 
 def station_lijst_eind():
-    'Dit controleert of de ingevoerde station mogelijk is.'
+    'Dit controleert of de ingevoerde eindstation wel in Nederland is en of het wel bestaat.'
     auth_details = ('redouan_school@outlook.com', '2SV3LsPcPB2SD5acBQ3omnyrhmyddwQwZUIHUzSF6C9kqvVG45juXQ')
     api_url = 'http://webservices.ns.nl/ns-api-stations?_ga=2.144939316.1633515006.1539776820-574820872.1539172714'
 
     response = requests.get(api_url, auth=auth_details)
+    'API oproepen'
 
     vertrekXML = xmltodict.parse(response.text)
 
@@ -66,11 +69,12 @@ def station_lijst_eind():
                 return goed1
 
 def station_lijst_buitenland():
-    'Dit controleert of de ingevoerde station mogelijk is.'
+    'Dit controleert of de ingevoerde station wel bestaat.'
     auth_details = ('redouan_school@outlook.com', '2SV3LsPcPB2SD5acBQ3omnyrhmyddwQwZUIHUzSF6C9kqvVG45juXQ')
     api_url = 'http://webservices.ns.nl/ns-api-stations?_ga=2.144939316.1633515006.1539776820-574820872.1539172714'
 
     response = requests.get(api_url, auth=auth_details)
+    'API oproepen'
 
     vertrekXML = xmltodict.parse(response.text)
 
@@ -94,11 +98,12 @@ def station_lijst_buitenland():
                 return goed
 
 def station_lijst_buitenland_eind():
-    'Dit controleert of de ingevoerde station mogelijk is.'
+    'Dit controleert of de ingevoerde station wel bestaat en zich in het buitenland bevind.'
     auth_details = ('redouan_school@outlook.com', '2SV3LsPcPB2SD5acBQ3omnyrhmyddwQwZUIHUzSF6C9kqvVG45juXQ')
     api_url = 'http://webservices.ns.nl/ns-api-stations?_ga=2.144939316.1633515006.1539776820-574820872.1539172714'
 
     response = requests.get(api_url, auth=auth_details)
+    'API oproepen'
 
     vertrekXML = xmltodict.parse(response.text)
 
@@ -130,6 +135,7 @@ def plannen():
     api_url = 'http://webservices.ns.nl/ns-api-avt?station={}'.format(stad)
 
     response = requests.get(api_url, auth=auth_details)
+    'API oproepen'
 
     vertrekXML = xmltodict.parse(response.text)
 
@@ -157,6 +163,7 @@ def nu_weg():
     api_url = 'http://webservices.ns.nl/ns-api-avt?station=ut'
 
     response = requests.get(api_url, auth=auth_details)
+    'API oproepen'
 
     vertrekXML = xmltodict.parse(response.text)
 
@@ -176,7 +183,7 @@ def nu_weg():
             pass
 
 def buitenland():
-    'Dit is de optie waarvoor wordt gekozen als de gebruiker kiest voor het plannen van zijn/haar route.'
+    'Dit is de optie waarvoor wordt gekozen als de gebruiker kiest voor het plannen van zijn/haar route naar het buitenland.'
     stad = station_lijst_buitenland()
     stad_eind = station_lijst_buitenland_eind()
 
@@ -184,6 +191,7 @@ def buitenland():
     api_url = 'http://webservices.ns.nl/ns-api-avt?station={}'.format(stad)
 
     response = requests.get(api_url, auth=auth_details)
+    'API oproepen'
 
     vertrekXML = xmltodict.parse(response.text)
 
@@ -202,8 +210,98 @@ def buitenland():
         else:
             pass
 
+def interface_plannen():
+    'Interface voor de optie plannen.'
+    root = Tk()
+    root.title('NS Ticketmachine')
+    root.geometry('1920x1080+0+0')
+    root.configure(background='#ffac00')
+
+    heading = Label(root, text='Welcome to NS', background='#ffac00', font=('Frutiger', 110, 'bold'),
+                    fg='#003373').pack()
+
+    label1 = Label(root, text='Please insert the following : ', background='#ffac00', font=('Frutiger', 40, 'bold'),
+                   fg='#003373').pack()
+    label2 = Label(root, text='Utrecht Centraal', background='#ffac00', font=('Frutiger', 20, 'bold'),
+                   fg='#003373').place(x=10, y=10)
+
+    Enter = Button(root, text='Enter', width=15, height=13, bg='#ffac00', command=print('shit'), font=('Frutiger', 30, 'bold'), fg='#003373').place(x=1400, y=300)
+
+    def tick(time1=''):
+        'Dit is onze klok.'
+        time2 = time.strftime('%H:%M:%S')
+        if time2 != time1:
+            time1 = time2
+            clock_frame.config(text=time2)
+        clock_frame.after(200, tick)
+
+    clock_frame = Label(root, font=('Futiger', 25, 'bold'), bg='#ffac00', fg='#003373')
+    clock_frame.place(x=1750, y=10)
+    tick()
+    root.mainloop()
+
+def interface_nuweg():
+    'Interface voor de optie nu weg.'
+    root = Tk()
+    root.title('NS Ticketmachine')
+    root.geometry('1920x1080+0+0')
+    root.configure(background='#ffac00')
+
+    heading = Label(root, text='Welcome to NS', background='#ffac00', font=('Frutiger', 110, 'bold'),
+                    fg='#003373').pack()
+
+    label1 = Label(root, text='Please insert the following : ', background='#ffac00', font=('Frutiger', 40, 'bold'),
+                   fg='#003373').pack()
+    label2 = Label(root, text='Utrecht Centraal', background='#ffac00', font=('Frutiger', 20, 'bold'),
+                   fg='#003373').place(x=10, y=10)
+
+    Enter = Button(root, text='Enter', width=15, height=13, bg='#ffac00', command=print('shit'), font=('Frutiger', 30, 'bold'), fg='#003373').place(x=1400, y=300)
+
+    def tick(time1=''):
+        'Dit is onze klok.'
+        time2 = time.strftime('%H:%M:%S')
+        if time2 != time1:
+            time1 = time2
+            clock_frame.config(text=time2)
+        clock_frame.after(200, tick)
+
+    clock_frame = Label(root, font=('Futiger', 25, 'bold'), bg='#ffac00', fg='#003373')
+    clock_frame.place(x=1750, y=10)
+    tick()
+    root.mainloop()
+
+def interface_buitenland():
+    'Interface voor de optie buitenland.'
+    root = Tk()
+    root.title('NS Ticketmachine')
+    root.geometry('1920x1080+0+0')
+    root.configure(background='#ffac00')
+
+    heading = Label(root, text='Welcome to NS', background='#ffac00', font=('Frutiger', 110, 'bold'),
+                    fg='#003373').pack()
+
+    label1 = Label(root, text='Please insert the following : ', background='#ffac00', font=('Frutiger', 40, 'bold'),
+                   fg='#003373').pack()
+    label2 = Label(root, text='Utrecht Centraal', background='#ffac00', font=('Frutiger', 20, 'bold'),
+                   fg='#003373').place(x=10, y=10)
+
+    Enter = Button(root, text='Enter', width=15, height=13, bg='#ffac00', command=print('shit'), font=('Frutiger', 30, 'bold'), fg='#003373').place(x=1400, y=300)
+
+    def tick(time1=''):
+        'Dit is onze klok.'
+        time2 = time.strftime('%H:%M:%S')
+        if time2 != time1:
+            time1 = time2
+            clock_frame.config(text=time2)
+        clock_frame.after(200, tick)
+
+    clock_frame = Label(root, font=('Futiger', 25, 'bold'), bg='#ffac00', fg='#003373')
+    clock_frame.place(x=1750, y=10)
+    tick()
+    root.mainloop()
+
 root = Tk()
-'Dit is de interface'
+'Beginscherm interface.'
 
 root.title('NS Ticketmachine')
 root.geometry('1920x1080+0+0')
@@ -218,9 +316,10 @@ label2 = Label(root, text='Utrecht Centraal', background='#ffac00', font=('Fruti
 #logo = PhotoImage(file='NS1.png')
 #label3 = Label(root, image=logo).pack()
 
-knop1 = Button(root, text='Route Planner', width=15, height=6, bg='#ffac00', command=print('open scherm'), font=('Frutiger', 30, 'bold'), fg='#003373').place(x=250, y=500)
-knop2 = Button(root, text='Leave Now', width=15, height=6, bg='#ffac00', command=print('open scherm'), font=('Frutiger', 30, 'bold'), fg='#003373').place(x=750, y=500)
-knop3 = Button(root, text='Travel Abroad', width=15, height=6, bg='#ffac00', command=print('open scherm'), font=('Frutiger', 30, 'bold'), fg='#003373').place(x=1250, y=500)
+'buttons'
+knop1 = Button(root, text='Route Planner', width=15, height=6, bg='#ffac00', command=interface_plannen, font=('Frutiger', 30, 'bold'), fg='#003373').place(x=250, y=500)
+knop2 = Button(root, text='Leave Now', width=15, height=6, bg='#ffac00', command=interface_nuweg, font=('Frutiger', 30, 'bold'), fg='#003373').place(x=750, y=500)
+knop3 = Button(root, text='Travel Abroad', width=15, height=6, bg='#ffac00', command=interface_buitenland, font=('Frutiger', 30, 'bold'), fg='#003373').place(x=1250, y=500)
 
 
 def tick(time1=''):
@@ -234,5 +333,7 @@ def tick(time1=''):
 clock_frame = Label(root, font=('Futiger', 25, 'bold'), bg='#ffac00', fg='#003373')
 clock_frame.place(x=1750, y=10)
 tick()
+
 root.mainloop()
+
 
