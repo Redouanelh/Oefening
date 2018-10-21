@@ -1,17 +1,21 @@
-from tkinter import *
+import tkinter as tk
 
-root = Tk()
+root = tk.Tk()
 
-def callback(*args):
-    print(sv.get())
-    print(entry.get())
+def timeout_cb():
+    answer.unbind('<Key-Return>')  # disable answer entry
+    print('timed out')
 
-sv = StringVar()
+def answer_cb(event):
+    root.after_cancel(time_id)  # disable timeout timer
+    print('you answered', answer.get())
 
-sv.trace("w", callback)
-
-entry = Entry(root, textvariable=sv)
-
-entry.pack()
+prompt = tk.Label(root, text='Name?')
+answer = tk.Entry(root)
+prompt.grid(row=0, column=0)
+answer.grid(row=0, column=1)
+answer.focus_set()
+answer.bind('<Key-Return>', answer_cb)
+time_id = root.after(10000, timeout_cb)  # 10 seconds
 
 root.mainloop()

@@ -21,7 +21,7 @@ def station_lijst():
     vertrekXML = xmltodict.parse(response.text)
 
     while True:
-        station = a
+        station = a.title()
         for x in vertrekXML['stations']['station']:
             name = x['name']
             country = x['country']
@@ -41,16 +41,6 @@ def station_lijst():
 
 def station_lijst_eind():
     'Dit controleert of de ingevoerde eindstation wel in Nederland is en of het wel bestaat.'
-    veld2 = Entry(root, font=('Frutiger', 50, 'bold'), fg='#ffac00', background='#003373')
-    veld2.place(x=550, y=700)
-    veld2.focus_set()
-
-    def get_entry():
-        b = veld2.get()
-        return b
-
-    get_entry()
-
     auth_details = ('redouan_school@outlook.com', '2SV3LsPcPB2SD5acBQ3omnyrhmyddwQwZUIHUzSF6C9kqvVG45juXQ')
     api_url = 'http://webservices.ns.nl/ns-api-stations?_ga=2.144939316.1633515006.1539776820-574820872.1539172714'
 
@@ -60,7 +50,7 @@ def station_lijst_eind():
     vertrekXML = xmltodict.parse(response.text)
 
     while True:
-        station_eind = b
+        station_eind = b.title()
         for x in vertrekXML['stations']['station']:
             name = x['name']
             country = x['country']
@@ -88,7 +78,7 @@ def station_lijst_buitenland():
     vertrekXML = xmltodict.parse(response.text)
 
     while True:
-        station = c
+        station = c.title()
         for x in vertrekXML['stations']['station']:
             name = x['name']
             country = x['country']
@@ -117,7 +107,7 @@ def station_lijst_buitenland_eind():
     vertrekXML = xmltodict.parse(response.text)
 
     while True:
-        station_eind = d
+        station_eind = d.title()
         for x in vertrekXML['stations']['station']:
             name = x['name']
             country = x['country']
@@ -191,6 +181,7 @@ def nu_weg():
         else:
             pass
 
+
 def buitenland():
     'Dit is de optie waarvoor wordt gekozen als de gebruiker kiest voor het plannen van zijn/haar route naar het buitenland.'
     stad = station_lijst_buitenland()
@@ -233,6 +224,7 @@ def interface_plannen():
                    fg='#003373').pack()
     label2 = Label(root, text='Utrecht Centraal', background='#ffac00', font=('Frutiger', 20, 'bold'),
                    fg='#003373').place(x=10, y=10)
+    label3 = Label(root, text='Output', bg='gold', fg='blue').pack()
 
     veld1 = Entry(root, font=('Frutiger',50, 'bold'), fg='#ffac00', background='#003373')
     veld1.place(x=550, y=400)
@@ -243,12 +235,14 @@ def interface_plannen():
     veld2.focus_set()
 
     def get_entry():
+        global a
+        global b
         a = veld1.get()
         b = veld2.get()
         return a, b
 
 
-    Enter = Button(root, text='Enter', width=15, height=13, bg='#ffac00', command=lambda: [plannen(), get_entry()], font=('Frutiger', 30, 'bold'), fg='#003373').place(x=1400, y=300)
+    Enter = Button(root, text='Enter', width=15, height=13, bg='#ffac00', command=lambda: [get_entry(), plannen()], font=('Frutiger', 30, 'bold'), fg='#003373').place(x=1400, y=300)
 
     def tick(time1=''):
         'Dit is onze klok.'
@@ -278,12 +272,14 @@ def interface_nuweg():
                    fg='#003373').pack()
     label2 = Label(root, text='Utrecht Centraal', background='#ffac00', font=('Frutiger', 20, 'bold'),
                    fg='#003373').place(x=10, y=10)
+    label3 = Label(root, text='input', bg='gold', fg='blue').pack()
 
     veld2 = Entry(root, font=('Frutiger', 50, 'bold'), fg='#ffac00', background='#003373')
     veld2.place(x=550, y=700)
     veld2.focus_set()
 
     def get_entry():
+        global b
         b = veld2.get()
         return b
 
@@ -317,6 +313,7 @@ def interface_buitenland():
                    fg='#003373').pack()
     label2 = Label(root, text='Utrecht Centraal', background='#ffac00', font=('Frutiger', 20, 'bold'),
                    fg='#003373').place(x=10, y=10)
+    label3 = Label(root, text='input', bg='gold', fg='blue').pack()
 
     veld1 = Entry(root, font=('Frutiger',50, 'bold'), fg='#ffac00', background='#003373')
     veld1.place(x=550, y=400)
@@ -327,11 +324,12 @@ def interface_buitenland():
     veld2.focus_set()
 
     def get_entry():
+        global c, d
         c = veld1.get()
         d = veld2.get()
         return c, d
 
-    Enter = Button(root, text='Enter', width=15, height=13, bg='#ffac00', command=lambda:[buitenland(), get_entry()], font=('Frutiger', 30, 'bold'), fg='#003373').place(x=1400, y=300)
+    Enter = Button(root, text='Enter', width=15, height=13, bg='#ffac00', command=lambda:[get_entry(), buitenland()], font=('Frutiger', 30, 'bold'), fg='#003373').place(x=1400, y=300)
 
     def tick(time1=''):
         'Dit is onze klok.'
