@@ -10,7 +10,6 @@ tijd = vandaag.strftime('%H:%M')
 lijst = []
 list = []
 
-
 def station_lijst():
     'Dit controleert of de ingevoerde station in Nederland is, en of het wel bestaat.'
     auth_details = ('redouan_school@outlook.com', '2SV3LsPcPB2SD5acBQ3omnyrhmyddwQwZUIHUzSF6C9kqvVG45juXQ')
@@ -22,7 +21,7 @@ def station_lijst():
     vertrekXML = xmltodict.parse(response.text)
 
     while True:
-        station = input('Voer uw station in: ').title()
+        station = a
         for x in vertrekXML['stations']['station']:
             name = x['name']
             country = x['country']
@@ -42,6 +41,16 @@ def station_lijst():
 
 def station_lijst_eind():
     'Dit controleert of de ingevoerde eindstation wel in Nederland is en of het wel bestaat.'
+    veld2 = Entry(root, font=('Frutiger', 50, 'bold'), fg='#ffac00', background='#003373')
+    veld2.place(x=550, y=700)
+    veld2.focus_set()
+
+    def get_entry():
+        b = veld2.get()
+        return b
+
+    get_entry()
+
     auth_details = ('redouan_school@outlook.com', '2SV3LsPcPB2SD5acBQ3omnyrhmyddwQwZUIHUzSF6C9kqvVG45juXQ')
     api_url = 'http://webservices.ns.nl/ns-api-stations?_ga=2.144939316.1633515006.1539776820-574820872.1539172714'
 
@@ -51,7 +60,7 @@ def station_lijst_eind():
     vertrekXML = xmltodict.parse(response.text)
 
     while True:
-        station_eind = input('Voer uw eindstation in: ').title()
+        station_eind = b
         for x in vertrekXML['stations']['station']:
             name = x['name']
             country = x['country']
@@ -79,7 +88,7 @@ def station_lijst_buitenland():
     vertrekXML = xmltodict.parse(response.text)
 
     while True:
-        station = input('Voer uw station in: ').title()
+        station = c
         for x in vertrekXML['stations']['station']:
             name = x['name']
             country = x['country']
@@ -108,7 +117,7 @@ def station_lijst_buitenland_eind():
     vertrekXML = xmltodict.parse(response.text)
 
     while True:
-        station_eind = input('Voer uw eindstation in: ').title()
+        station_eind = d
         for x in vertrekXML['stations']['station']:
             name = x['name']
             country = x['country']
@@ -225,7 +234,21 @@ def interface_plannen():
     label2 = Label(root, text='Utrecht Centraal', background='#ffac00', font=('Frutiger', 20, 'bold'),
                    fg='#003373').place(x=10, y=10)
 
-    Enter = Button(root, text='Enter', width=15, height=13, bg='#ffac00', command=print('shit'), font=('Frutiger', 30, 'bold'), fg='#003373').place(x=1400, y=300)
+    veld1 = Entry(root, font=('Frutiger',50, 'bold'), fg='#ffac00', background='#003373')
+    veld1.place(x=550, y=400)
+    veld1.focus_set()
+
+    veld2 = Entry(root, font=('Frutiger',50, 'bold'), fg='#ffac00', background='#003373')
+    veld2.place(x=550, y=700)
+    veld2.focus_set()
+
+    def get_entry():
+        a = veld1.get()
+        b = veld2.get()
+        return a, b
+
+
+    Enter = Button(root, text='Enter', width=15, height=13, bg='#ffac00', command=lambda: [plannen(), get_entry()], font=('Frutiger', 30, 'bold'), fg='#003373').place(x=1400, y=300)
 
     def tick(time1=''):
         'Dit is onze klok.'
@@ -239,6 +262,7 @@ def interface_plannen():
     clock_frame.place(x=1750, y=10)
     tick()
     root.mainloop()
+
 
 def interface_nuweg():
     'Interface voor de optie nu weg.'
@@ -255,7 +279,15 @@ def interface_nuweg():
     label2 = Label(root, text='Utrecht Centraal', background='#ffac00', font=('Frutiger', 20, 'bold'),
                    fg='#003373').place(x=10, y=10)
 
-    Enter = Button(root, text='Enter', width=15, height=13, bg='#ffac00', command=print('shit'), font=('Frutiger', 30, 'bold'), fg='#003373').place(x=1400, y=300)
+    veld2 = Entry(root, font=('Frutiger', 50, 'bold'), fg='#ffac00', background='#003373')
+    veld2.place(x=550, y=700)
+    veld2.focus_set()
+
+    def get_entry():
+        b = veld2.get()
+        return b
+
+    Enter = Button(root, text='Enter', width=15, height=13, bg='#ffac00', command=lambda:[get_entry(), nu_weg()], font=('Frutiger', 30, 'bold'), fg='#003373').place(x=1400, y=300)
 
     def tick(time1=''):
         'Dit is onze klok.'
@@ -269,6 +301,7 @@ def interface_nuweg():
     clock_frame.place(x=1750, y=10)
     tick()
     root.mainloop()
+
 
 def interface_buitenland():
     'Interface voor de optie buitenland.'
@@ -285,7 +318,20 @@ def interface_buitenland():
     label2 = Label(root, text='Utrecht Centraal', background='#ffac00', font=('Frutiger', 20, 'bold'),
                    fg='#003373').place(x=10, y=10)
 
-    Enter = Button(root, text='Enter', width=15, height=13, bg='#ffac00', command=print('shit'), font=('Frutiger', 30, 'bold'), fg='#003373').place(x=1400, y=300)
+    veld1 = Entry(root, font=('Frutiger',50, 'bold'), fg='#ffac00', background='#003373')
+    veld1.place(x=550, y=400)
+    veld1.focus_set()
+
+    veld2 = Entry(root, font=('Frutiger',50, 'bold'), fg='#ffac00', background='#003373')
+    veld2.place(x=550, y=700)
+    veld2.focus_set()
+
+    def get_entry():
+        c = veld1.get()
+        d = veld2.get()
+        return c, d
+
+    Enter = Button(root, text='Enter', width=15, height=13, bg='#ffac00', command=lambda:[buitenland(), get_entry()], font=('Frutiger', 30, 'bold'), fg='#003373').place(x=1400, y=300)
 
     def tick(time1=''):
         'Dit is onze klok.'
