@@ -3,6 +3,7 @@ import xmltodict
 import datetime
 from tkinter import *
 import time
+import os
 
 vandaag = datetime.datetime.now()
 datum = vandaag.strftime('%a %d %b %Y')
@@ -94,7 +95,7 @@ def station_lijst_eind():
                 root.geometry('800x600+500+250')
                 root.configure(background='#003373')
                 label = Label(root,
-                              text='The station you have entered is unknown in the Netherlands.\n\nPlease try again.',
+                              text='The station you have entered\n is unknown in the Netherlands.\n\nPlease try again.',
                               font=('Frutiger', 30, 'bold'), bg='#003373', fg='#ffac00').pack()
                 ok = Button(root, text='Ok', width=7, height=2, bg='#ffac00', command=root.destroy,
                             font=('Frutiger', 30, 'bold'), fg='#003373').place(x=315, y=450)
@@ -301,6 +302,10 @@ def interface_plannen():
                    fg='#003373').pack()
     label2 = Label(root, text='Utrecht Centraal', background='#ffac00', font=('Frutiger', 20, 'bold'),
                    fg='#003373').place(x=10, y=10)
+    label3 = Label(root, text='From :', background='#ffac00', font=('Frutiger', 50, 'bold'),
+                   fg='#003373').place(x=550, y=300)
+    label4 = Label(root, text='To :', background='#ffac00', font=('Frutiger', 50, 'bold'),
+                   fg='#003373').place(x=550, y=610)
     return_button = Button(root, text='Return', width=7, height=2, bg='#ffac00', command=root.destroy,
                            font=('Frutiger', 30, 'bold'), fg='#003373').place(x=10, y=875)
 
@@ -364,6 +369,8 @@ def interface_nuweg():
                    fg='#003373').pack()
     label2 = Label(root, text='Utrecht Centraal', background='#ffac00', font=('Frutiger', 20, 'bold'),
                    fg='#003373').place(x=10, y=10)
+    label4 = Label(root, text='To :', background='#ffac00', font=('Frutiger', 50, 'bold'),
+                   fg='#003373').place(x=550, y=610)
     return_button = Button(root, text='Return', width=7, height=2, bg='#ffac00', command=root.destroy, font=('Frutiger', 30, 'bold'), fg='#003373').place(x=10, y=875)
 
     veld2 = Entry(root, font=('Frutiger', 50, 'bold'), fg='#ffac00', background='#003373')
@@ -417,6 +424,10 @@ def interface_buitenland():
                    fg='#003373').pack()
     label2 = Label(root, text='Utrecht Centraal', background='#ffac00', font=('Frutiger', 20, 'bold'),
                    fg='#003373').place(x=10, y=10)
+    label3 = Label(root, text='From :', background='#ffac00', font=('Frutiger', 50, 'bold'),
+                   fg='#003373').place(x=550, y=300)
+    label4 = Label(root, text='To :', background='#ffac00', font=('Frutiger', 50, 'bold'),
+                   fg='#003373').place(x=550, y=610)
     return_button = Button(root, text='Return', width=7, height=2, bg='#ffac00', command=root.destroy,
                            font=('Frutiger', 30, 'bold'), fg='#003373').place(x=10, y=875)
 
@@ -472,6 +483,10 @@ heading = Label(root, text='Welcome to NS', background='#ffac00',  font=('Frutig
 label1 = Label(root, text='Please select your option', background='#ffac00', font=('Frutiger', 40, 'bold'), fg='#003373').pack()
 label2 = Label(root, text='Utrecht Centraal', background='#ffac00', font=('Frutiger', 20, 'bold'), fg='#003373').place(x=10, y=10)
 
+canvas = Canvas(width=300, height=200, bg='#ffac00')
+canvas.pack(expand=YES, fill=BOTH)
+gif1 = PhotoImage(file='ns20.png')
+canvas.create_image(50, 10, image=gif1, anchor=NW)
 
 #logo = PhotoImage(file='NS1.png')
 #label3 = Label(root, image=logo).pack()
