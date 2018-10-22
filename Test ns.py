@@ -3,13 +3,13 @@ import xmltodict
 import datetime
 from tkinter import *
 import time
-import os
 
 vandaag = datetime.datetime.now()
 datum = vandaag.strftime('%a %d %b %Y')
 tijd = vandaag.strftime('%H:%M')
 lijst = []
 list = []
+final_list = []
 
 def station_lijst():
     'Dit controleert of de ingevoerde station in Nederland is, en of het wel bestaat.'
@@ -213,7 +213,6 @@ def plannen():
 
     vertrekXML = xmltodict.parse(response.text)
 
-    print('Dit zijn de vertrekkende treinen: ')
 
     for vertrek in vertrekXML['ActueleVertrekTijden']['VertrekkendeTrein']:
         eindbestemming = vertrek['EindBestemming']
@@ -222,9 +221,9 @@ def plannen():
         vertrektijd = vertrektijd[11:16]  # 18:36
 
         if stad_eind == eindbestemming:
-            print('Om ' + vertrektijd + ' vertrekt een trein naar ' + eindbestemming)
+            print('At ' + vertrektijd + ' leaves a train to ' + eindbestemming)
         if stad_eind in eindbestemming:
-            print('Om ' + vertrektijd + ' vertrekt een trein naar ' + eindbestemming)
+            print('At ' + vertrektijd + ' leaves a train to ' + eindbestemming)
         else:
             pass
 
@@ -233,8 +232,6 @@ def nu_weg():
     'Dit is de optie waarvoor wordt gekozen als de gebruiker kiest voor NU VERTREKKEN.'
     stad_eind = station_lijst_eind()
 
-    global v
-    global q
 
     auth_details = ('redouan_school@outlook.com', '2SV3LsPcPB2SD5acBQ3omnyrhmyddwQwZUIHUzSF6C9kqvVG45juXQ')
     api_url = 'http://webservices.ns.nl/ns-api-avt?station=ut'
@@ -251,13 +248,12 @@ def nu_weg():
         vertrektijd = vertrektijd[11:16]  # 18:36
 
         if stad_eind == eindbestemming:
-            v = ('At ' + vertrektijd + ' leaves a train to ' + eindbestemming)
-        #elif stad_eind in eindbestemming:
-            #q = ('At ' + vertrektijd + ' leaves a train to ' + eindbestemming)
+            print('At ' + vertrektijd + ' leaves a train to ' + eindbestemming)
+        if stad_eind in eindbestemming:
+            print('At ' + vertrektijd + ' leaves a train to ' + eindbestemming)
         else:
             pass
 
-    return v
 
 
 def buitenland():
@@ -273,7 +269,6 @@ def buitenland():
 
     vertrekXML = xmltodict.parse(response.text)
 
-    print('Dit zijn de vertrekkende treinen: ')
 
     for vertrek in vertrekXML['ActueleVertrekTijden']['VertrekkendeTrein']:
         eindbestemming = vertrek['EindBestemming']
@@ -282,9 +277,9 @@ def buitenland():
         vertrektijd = vertrektijd[11:16]  # 18:36
 
         if stad_eind == eindbestemming:
-            print('Om ' + vertrektijd + ' vertrekt een trein naar ' + eindbestemming)
+            print('At ' + vertrektijd + ' leaves a train to ' + eindbestemming)
         elif stad_eind in eindbestemming:
-            print('Om ' + vertrektijd + ' vertrekt een trein naar ' + eindbestemming)
+            print('At ' + vertrektijd + ' leaves a train to ' + eindbestemming)
         else:
             pass
 
@@ -331,6 +326,7 @@ def interface_plannen():
         root.title('NS Ticketmachine')
         root.geometry('800x600+500+250')
         root.configure(background='#003373')
+        output = Label(root, text='output').pack()
         ok = Button(root, text='Finish', width=7, height=2, bg='#ffac00', command=root.destroy, font=('Frutiger', 30, 'bold'), fg='#003373').place(x=315, y=450)
 
         root.mainloop()
@@ -354,8 +350,6 @@ def interface_plannen():
 
 def interface_nuweg():
     'Interface voor de optie nu weg.'
-    global q
-    global v
 
     root = Tk()
     root.title('NS Ticketmachine')
@@ -389,7 +383,7 @@ def interface_nuweg():
         root.title('NS Ticketmachine')
         root.geometry('800x600+500+250')
         root.configure(background='#003373')
-        label = Label(root, text=v).pack()
+        output = Label(root, text='output').pack()
         ok = Button(root, text='Finish', width=7, height=2, bg='#ffac00', command=root.destroy, font=('Frutiger', 30, 'bold'), fg='#003373').place(x=315, y=450)
 
         root.mainloop()
@@ -448,10 +442,12 @@ def interface_buitenland():
         return c, d
 
     def place_output():
+        'Laat door middel van een pop-up de vertrektijden zien.'
         root = Tk()
         root.title('NS Ticketmachine')
         root.geometry('800x600+500+250')
         root.configure(background='#003373')
+        output = Label(root, text='output').pack()
         ok = Button(root, text='Finish', width=7, height=2, bg='#ffac00', command=root.destroy, font=('Frutiger', 30, 'bold'), fg='#003373').place(x=315, y=450)
 
         root.mainloop()
@@ -483,18 +479,40 @@ heading = Label(root, text='Welcome to NS', background='#ffac00',  font=('Frutig
 label1 = Label(root, text='Please select your option', background='#ffac00', font=('Frutiger', 40, 'bold'), fg='#003373').pack()
 label2 = Label(root, text='Utrecht Centraal', background='#ffac00', font=('Frutiger', 20, 'bold'), fg='#003373').place(x=10, y=10)
 
-canvas = Canvas(width=300, height=200, bg='#ffac00')
+#NS logo
+canvas = Canvas(width=300, height=200, bg='#ffac00', highlightthickness=0)
 canvas.pack(expand=YES, fill=BOTH)
 gif1 = PhotoImage(file='ns20.png')
-canvas.create_image(50, 10, image=gif1, anchor=NW)
+canvas.create_image(700, 0, image=gif1, anchor=NW)
 
-#logo = PhotoImage(file='NS1.png')
-#label3 = Label(root, image=logo).pack()
+def stationXML():
+    'Dit wordt gebruikt om als gebruiker een lijst met namen van de stations te zien die volgens NS mogelijk zijn. Telkens als je op de return knop klikt en opnieuw de stationlijst start, worden er nieuwe stations op het scherm toegevoegd. Het is ons niet gelukt dit te fixen.'
+    auth_details = ('redouan_school@outlook.com', '2SV3LsPcPB2SD5acBQ3omnyrhmyddwQwZUIHUzSF6C9kqvVG45juXQ')
+    api_url = 'http://webservices.ns.nl/ns-api-stations?_ga=2.144939316.1633515006.1539776820-574820872.1539172714'
+
+    response = requests.get(api_url, auth=auth_details)
+    'API oproepen'
+
+    vertrekXML = xmltodict.parse(response.text)
+
+    for x in vertrekXML['stations']['station']:
+        name = x['name']
+        final_list.append(name)
+
+
+    root = Tk()
+    root.title('NS Ticketmachine')
+    root.geometry('1920x1080+0+0')
+    root.configure(background='#003373')
+    labeltje = Label(root, text=', '.join(final_list), wraplength=1920, bg='#003373', fg='#ffac00', font=('Frutiger', 9, 'bold')).pack()
+    return1 = Button(root, text='Return', width=15, height=2, bg='#ffac00', command=root.destroy, font=('Frutiger', 30, 'bold'), fg='#003373').place(x=10, y=875)
+
 
 #Buttons
 knop1 = Button(root, text='Route Planner', width=15, height=6, bg='#ffac00', command=interface_plannen, font=('Frutiger', 30, 'bold'), fg='#003373').place(x=250, y=500)
 knop2 = Button(root, text='Leave Now', width=15, height=6, bg='#ffac00', command=interface_nuweg, font=('Frutiger', 30, 'bold'), fg='#003373').place(x=750, y=500)
 knop3 = Button(root, text='Travel Abroad', width=15, height=6, bg='#ffac00', command=interface_buitenland, font=('Frutiger', 30, 'bold'), fg='#003373').place(x=1250, y=500)
+knop4 = Button(root, text='Available Stations', width=15, height=2, bg='#ffac00', command=stationXML,font=('Frutiger', 30, 'bold'), fg='#003373').place(x=10, y=875)
 
 
 def tick(time1=''):

@@ -9,6 +9,7 @@ datum = vandaag.strftime('%a %d %b %Y')
 tijd = vandaag.strftime('%H:%M')
 lijst = []
 list = []
+final_list = []
 
 def station_lijst():
     'Dit controleert of de ingevoerde station in Nederland is, en of het wel bestaat.'
