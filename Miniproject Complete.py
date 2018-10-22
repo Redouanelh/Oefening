@@ -235,6 +235,7 @@ def interface_plannen():
     veld2.focus_set()
 
     def get_entry():
+        'Haalt de ingevoerde woord op uit de Entry balk.'
         global a
         global b
         a = veld1.get()
@@ -245,7 +246,7 @@ def interface_plannen():
     Enter = Button(root, text='Enter', width=15, height=13, bg='#ffac00', command=lambda: [get_entry(), plannen()], font=('Frutiger', 30, 'bold'), fg='#003373').place(x=1400, y=300)
 
     def tick(time1=''):
-        'Dit is onze klok.'
+        'Dit is onze digitale klok.'
         time2 = time.strftime('%H:%M:%S')
         if time2 != time1:
             time1 = time2
@@ -279,6 +280,7 @@ def interface_nuweg():
     veld2.focus_set()
 
     def get_entry():
+        'Haalt de ingevoerde woord op uit de Entry balk.'
         global b
         b = veld2.get()
         return b
@@ -286,7 +288,7 @@ def interface_nuweg():
     Enter = Button(root, text='Enter', width=15, height=13, bg='#ffac00', command=lambda:[get_entry(), nu_weg()], font=('Frutiger', 30, 'bold'), fg='#003373').place(x=1400, y=300)
 
     def tick(time1=''):
-        'Dit is onze klok.'
+        'Dit is onze digitale klok.'
         time2 = time.strftime('%H:%M:%S')
         if time2 != time1:
             time1 = time2
@@ -324,6 +326,7 @@ def interface_buitenland():
     veld2.focus_set()
 
     def get_entry():
+        'Haalt de ingevoerde woord op uit de Entry balk.'
         global c, d
         c = veld1.get()
         d = veld2.get()
@@ -332,7 +335,7 @@ def interface_buitenland():
     Enter = Button(root, text='Enter', width=15, height=13, bg='#ffac00', command=lambda:[get_entry(), buitenland()], font=('Frutiger', 30, 'bold'), fg='#003373').place(x=1400, y=300)
 
     def tick(time1=''):
-        'Dit is onze klok.'
+        'Dit is onze digitale klok.'
         time2 = time.strftime('%H:%M:%S')
         if time2 != time1:
             time1 = time2
@@ -360,14 +363,14 @@ label2 = Label(root, text='Utrecht Centraal', background='#ffac00', font=('Fruti
 #logo = PhotoImage(file='NS1.png')
 #label3 = Label(root, image=logo).pack()
 
-'buttons'
+#Buttons
 knop1 = Button(root, text='Route Planner', width=15, height=6, bg='#ffac00', command=interface_plannen, font=('Frutiger', 30, 'bold'), fg='#003373').place(x=250, y=500)
 knop2 = Button(root, text='Leave Now', width=15, height=6, bg='#ffac00', command=interface_nuweg, font=('Frutiger', 30, 'bold'), fg='#003373').place(x=750, y=500)
 knop3 = Button(root, text='Travel Abroad', width=15, height=6, bg='#ffac00', command=interface_buitenland, font=('Frutiger', 30, 'bold'), fg='#003373').place(x=1250, y=500)
 
 
 def tick(time1=''):
-    'Dit is onze klok.'
+    'Dit is de digitale klok'
     time2 = time.strftime('%H:%M:%S')
     if time2 != time1:
         time1 = time2
@@ -379,5 +382,3 @@ clock_frame.place(x=1750, y=10)
 tick()
 
 root.mainloop()
-
-
