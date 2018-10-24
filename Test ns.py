@@ -9,7 +9,6 @@ datum = vandaag.strftime('%a %d %b %Y')
 tijd = vandaag.strftime('%H:%M')
 lijst = []
 list = []
-final_list = []
 
 def station_lijst():
     'Dit controleert of de ingevoerde station in Nederland is, en of het wel bestaat.'
@@ -125,7 +124,7 @@ def station_lijst_buitenland():
         if station not in lijst:
             'Laat door middel van een pop-up zien dat het geen geldig station is.'
             root = Tk()
-            root.title('NS Ticketmachine')
+            root.title('NS Sprinter Ticketmachine')
             root.geometry('800x600+500+250')
             root.configure(background='#003373')
             label = Label(root, text='The station you have entered is not valid.\n\nPlease try again.',
@@ -139,7 +138,7 @@ def station_lijst_buitenland():
             if lijst[land] != 'NL':
                 'Laat door middel van een pop-up zien dat het ingevoerde station niet buitenlands mag zijn.'
                 root = Tk()
-                root.title('NS Ticketmachine')
+                root.title('NS Sprinter Ticketmachine')
                 root.geometry('800x600+500+250')
                 root.configure(background='#003373')
                 label = Label(root,
@@ -172,7 +171,7 @@ def station_lijst_buitenland_eind():
         if station_eind not in lijst:
             'Laat door middel van een pop-up zien dat het geen geldig station is.'
             root = Tk()
-            root.title('NS Ticketmachine')
+            root.title('NS Sprinter Ticketmachine')
             root.geometry('800x600+500+250')
             root.configure(background='#003373')
             label = Label(root, text='The station you have entered is not valid.\n\nPlease try again.',
@@ -186,7 +185,7 @@ def station_lijst_buitenland_eind():
             if lijst[land] == 'NL':
                 'Laat door middel van een pop-up zien dat het ingevoerde station alleen buitenlands mag zijn.'
                 root = Tk()
-                root.title('NS Ticketmachine')
+                root.title('NS Sprinter Ticketmachine')
                 root.geometry('800x600+500+250')
                 root.configure(background='#003373')
                 label = Label(root,
@@ -205,6 +204,12 @@ def plannen():
     stad = station_lijst()
     stad_eind = station_lijst_eind()
 
+    global q
+    global w
+    global interface_output
+
+    interface_output = []
+
     auth_details = ('redouan_school@outlook.com', '2SV3LsPcPB2SD5acBQ3omnyrhmyddwQwZUIHUzSF6C9kqvVG45juXQ')
     api_url = 'http://webservices.ns.nl/ns-api-avt?station={}'.format(stad)
 
@@ -221,9 +226,11 @@ def plannen():
         vertrektijd = vertrektijd[11:16]  # 18:36
 
         if stad_eind == eindbestemming:
-            print('At ' + vertrektijd + ' leaves a train to ' + eindbestemming)
-        if stad_eind in eindbestemming:
-            print('At ' + vertrektijd + ' leaves a train to ' + eindbestemming)
+            q = 'At ' + vertrektijd + ' leaves a train to ' + eindbestemming
+            interface_output.append(q)
+        elif stad_eind in eindbestemming:
+            w = 'At ' + vertrektijd + ' leaves a train to ' + eindbestemming
+            interface_output.append(w)
         else:
             pass
 
@@ -231,6 +238,12 @@ def plannen():
 def nu_weg():
     'Dit is de optie waarvoor wordt gekozen als de gebruiker kiest voor NU VERTREKKEN.'
     stad_eind = station_lijst_eind()
+
+    global q
+    global w
+    global interface_output
+
+    interface_output = []
 
 
     auth_details = ('redouan_school@outlook.com', '2SV3LsPcPB2SD5acBQ3omnyrhmyddwQwZUIHUzSF6C9kqvVG45juXQ')
@@ -248,9 +261,11 @@ def nu_weg():
         vertrektijd = vertrektijd[11:16]  # 18:36
 
         if stad_eind == eindbestemming:
-            print('At ' + vertrektijd + ' leaves a train to ' + eindbestemming)
-        if stad_eind in eindbestemming:
-            print('At ' + vertrektijd + ' leaves a train to ' + eindbestemming)
+            q = 'At ' + vertrektijd + ' leaves a train to ' + eindbestemming
+            interface_output.append(q)
+        elif stad_eind in eindbestemming:
+            w = 'At ' + vertrektijd + ' leaves a train to ' + eindbestemming
+            interface_output.append(w)
         else:
             pass
 
@@ -260,6 +275,12 @@ def buitenland():
     'Dit is de optie waarvoor wordt gekozen als de gebruiker kiest voor het plannen van zijn/haar route naar het buitenland.'
     stad = station_lijst_buitenland()
     stad_eind = station_lijst_buitenland_eind()
+
+    global q
+    global w
+    global interface_output
+
+    interface_output = []
 
     auth_details = ('redouan_school@outlook.com', '2SV3LsPcPB2SD5acBQ3omnyrhmyddwQwZUIHUzSF6C9kqvVG45juXQ')
     api_url = 'http://webservices.ns.nl/ns-api-avt?station={}'.format(stad)
@@ -277,16 +298,18 @@ def buitenland():
         vertrektijd = vertrektijd[11:16]  # 18:36
 
         if stad_eind == eindbestemming:
-            print('At ' + vertrektijd + ' leaves a train to ' + eindbestemming)
+            q = 'At ' + vertrektijd + ' leaves a train to ' + eindbestemming
+            interface_output.append(q)
         elif stad_eind in eindbestemming:
-            print('At ' + vertrektijd + ' leaves a train to ' + eindbestemming)
+            w = 'At ' + vertrektijd + ' leaves a train to ' + eindbestemming
+            interface_output.append(w)
         else:
             pass
 
 def interface_plannen():
     'Interface voor de optie plannen.'
     root = Tk()
-    root.title('NS Ticketmachine')
+    root.title('NS Sprinter Ticketmachine')
     root.geometry('1920x1080+0+0')
     root.configure(background='#ffac00')
 
@@ -295,11 +318,12 @@ def interface_plannen():
 
     label1 = Label(root, text='Please insert the following : ', background='#ffac00', font=('Frutiger', 40, 'bold'),
                    fg='#003373').pack()
-    label2 = Label(root, text='Utrecht Centraal', background='#ffac00', font=('Frutiger', 20, 'bold'),
+    label2 = Label(root, text='Utrecht Centraal', background='#ffac00', font=('Frutiger', 30, 'bold'),
                    fg='#003373').place(x=10, y=10)
-    label3 = Label(root, text='From :', background='#ffac00', font=('Frutiger', 50, 'bold'),
+    label3 = Label(root, text='Sprinter', font=('Futiger', 25, 'bold'), bg='#ffac00', fg='#003373').place(x=90, y=55)
+    label4 = Label(root, text='From :', background='#ffac00', font=('Frutiger', 50, 'bold'),
                    fg='#003373').place(x=550, y=300)
-    label4 = Label(root, text='To :', background='#ffac00', font=('Frutiger', 50, 'bold'),
+    label5 = Label(root, text='To :', background='#ffac00', font=('Frutiger', 50, 'bold'),
                    fg='#003373').place(x=550, y=610)
     return_button = Button(root, text='Return', width=7, height=2, bg='#ffac00', command=root.destroy,
                            font=('Frutiger', 30, 'bold'), fg='#003373').place(x=10, y=875)
@@ -323,10 +347,13 @@ def interface_plannen():
     def place_output():
         'Laat door middel van een pop-up de vertrektijden zien.'
         root = Tk()
-        root.title('NS Ticketmachine')
+        root.title('NS Sprinter Ticketmachine')
         root.geometry('800x600+500+250')
         root.configure(background='#003373')
-        output = Label(root, text='output').pack()
+        if len(interface_output) == 0:
+            output = Label(root, text='Unfortunately, there are no trains heading towards your destination.\nPlease try again later.').pack()
+        else:
+            output = Label(root, text='\n'.join(interface_output)).pack()
         ok = Button(root, text='Finish', width=7, height=2, bg='#ffac00', command=root.destroy, font=('Frutiger', 30, 'bold'), fg='#003373').place(x=315, y=450)
 
         root.mainloop()
@@ -352,7 +379,7 @@ def interface_nuweg():
     'Interface voor de optie nu weg.'
 
     root = Tk()
-    root.title('NS Ticketmachine')
+    root.title('NS Sprinter Ticketmachine')
     root.geometry('1920x1080+0+0')
     root.configure(background='#ffac00')
 
@@ -361,8 +388,9 @@ def interface_nuweg():
 
     label1 = Label(root, text='Please insert the following : ', background='#ffac00', font=('Frutiger', 40, 'bold'),
                    fg='#003373').pack()
-    label2 = Label(root, text='Utrecht Centraal', background='#ffac00', font=('Frutiger', 20, 'bold'),
+    label2 = Label(root, text='Utrecht Centraal', background='#ffac00', font=('Frutiger', 30, 'bold'),
                    fg='#003373').place(x=10, y=10)
+    label3 = Label(root, text='Sprinter', font=('Futiger', 25, 'bold'), bg='#ffac00', fg='#003373').place(x=90, y=55)
     label4 = Label(root, text='To :', background='#ffac00', font=('Frutiger', 50, 'bold'),
                    fg='#003373').place(x=550, y=610)
     return_button = Button(root, text='Return', width=7, height=2, bg='#ffac00', command=root.destroy, font=('Frutiger', 30, 'bold'), fg='#003373').place(x=10, y=875)
@@ -383,7 +411,10 @@ def interface_nuweg():
         root.title('NS Ticketmachine')
         root.geometry('800x600+500+250')
         root.configure(background='#003373')
-        output = Label(root, text='output').pack()
+        if len(interface_output) == 0:
+            output = Label(root, text='Unfortunately, there are no trains heading towards your destination.\nPlease try again later.').pack()
+        else:
+            output = Label(root, text='\n'.join(interface_output)).pack()
         ok = Button(root, text='Finish', width=7, height=2, bg='#ffac00', command=root.destroy, font=('Frutiger', 30, 'bold'), fg='#003373').place(x=315, y=450)
 
         root.mainloop()
@@ -407,7 +438,7 @@ def interface_nuweg():
 def interface_buitenland():
     'Interface voor de optie buitenland.'
     root = Tk()
-    root.title('NS Ticketmachine')
+    root.title('NS Sprinter Ticketmachine')
     root.geometry('1920x1080+0+0')
     root.configure(background='#ffac00')
 
@@ -416,11 +447,12 @@ def interface_buitenland():
 
     label1 = Label(root, text='Please insert the following : ', background='#ffac00', font=('Frutiger', 40, 'bold'),
                    fg='#003373').pack()
-    label2 = Label(root, text='Utrecht Centraal', background='#ffac00', font=('Frutiger', 20, 'bold'),
+    label2 = Label(root, text='Utrecht Centraal', background='#ffac00', font=('Frutiger', 30, 'bold'),
                    fg='#003373').place(x=10, y=10)
-    label3 = Label(root, text='From :', background='#ffac00', font=('Frutiger', 50, 'bold'),
+    label3 = Label(root, text='Sprinter', font=('Futiger', 25, 'bold'), bg='#ffac00', fg='#003373').place(x=90, y=55)
+    label4 = Label(root, text='From :', background='#ffac00', font=('Frutiger', 50, 'bold'),
                    fg='#003373').place(x=550, y=300)
-    label4 = Label(root, text='To :', background='#ffac00', font=('Frutiger', 50, 'bold'),
+    label5 = Label(root, text='To :', background='#ffac00', font=('Frutiger', 50, 'bold'),
                    fg='#003373').place(x=550, y=610)
     return_button = Button(root, text='Return', width=7, height=2, bg='#ffac00', command=root.destroy,
                            font=('Frutiger', 30, 'bold'), fg='#003373').place(x=10, y=875)
@@ -447,7 +479,11 @@ def interface_buitenland():
         root.title('NS Ticketmachine')
         root.geometry('800x600+500+250')
         root.configure(background='#003373')
-        output = Label(root, text='output').pack()
+        if len(interface_output) == 0:
+            output = Label(root, text='Unfortunately, there are no trains heading towards your destination.\nPlease try again later.').pack()
+        else:
+            output = Label(root, text=interface_output).pack()
+        output = Label(root, text='\n'.join(interface_output)).pack()
         ok = Button(root, text='Finish', width=7, height=2, bg='#ffac00', command=root.destroy, font=('Frutiger', 30, 'bold'), fg='#003373').place(x=315, y=450)
 
         root.mainloop()
@@ -470,14 +506,15 @@ def interface_buitenland():
 root = Tk()
 'Beginscherm interface.'
 
-root.title('NS Ticketmachine')
+root.title('NS Sprinter Ticketmachine')
 root.geometry('1920x1080+0+0')
 root.configure(background='#ffac00')
 
 heading = Label(root, text='Welcome to NS', background='#ffac00',  font=('Frutiger', 110, 'bold'), fg='#003373').pack()
 
 label1 = Label(root, text='Please select your option', background='#ffac00', font=('Frutiger', 40, 'bold'), fg='#003373').pack()
-label2 = Label(root, text='Utrecht Centraal', background='#ffac00', font=('Frutiger', 20, 'bold'), fg='#003373').place(x=10, y=10)
+label2 = Label(root, text='Utrecht Centraal', background='#ffac00', font=('Frutiger', 30, 'bold'), fg='#003373').place(x=10, y=10)
+label3 = Label(root, text='Sprinter', font=('Futiger', 25, 'bold'), bg='#ffac00', fg='#003373').place(x=90, y=55)
 
 #NS logo
 canvas = Canvas(width=300, height=200, bg='#ffac00', highlightthickness=0)
@@ -489,6 +526,7 @@ def stationXML():
     'Dit wordt gebruikt om als gebruiker een lijst met namen van de stations te zien die volgens NS mogelijk zijn. Telkens als je op de return knop klikt en opnieuw de stationlijst start, worden er nieuwe stations op het scherm toegevoegd. Het is ons niet gelukt dit te fixen.'
     auth_details = ('redouan_school@outlook.com', '2SV3LsPcPB2SD5acBQ3omnyrhmyddwQwZUIHUzSF6C9kqvVG45juXQ')
     api_url = 'http://webservices.ns.nl/ns-api-stations?_ga=2.144939316.1633515006.1539776820-574820872.1539172714'
+    final_list = []
 
     response = requests.get(api_url, auth=auth_details)
     'API oproepen'
@@ -501,7 +539,7 @@ def stationXML():
 
 
     root = Tk()
-    root.title('NS Ticketmachine')
+    root.title('NS Sprinter Ticketmachine')
     root.geometry('1920x1080+0+0')
     root.configure(background='#003373')
     labeltje = Label(root, text=', '.join(final_list), wraplength=1920, bg='#003373', fg='#ffac00', font=('Frutiger', 9, 'bold')).pack()
