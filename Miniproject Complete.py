@@ -3,6 +3,7 @@ import xmltodict
 import datetime
 from tkinter import *
 import time
+import csv
 
 vandaag = datetime.datetime.now()
 datum = vandaag.strftime('%a %d %b %Y')
@@ -42,6 +43,13 @@ def station_lijst():
         else:
             index = lijst.index(station)
             land = index + 1
+            list = []
+            with open('inputdatabase.csv', 'a', newline='') as csvv:
+                writer = csv.writer(csvv, delimiter=';')
+                while True:
+                    list.extend([a])
+                    writer.writerow(list)
+                    break
             if lijst[land] != 'NL':
                 'Laat door middel van een pop-up zien dat het ingevoerde station niet buitenlands mag zijn.'
                 root = Tk()
@@ -87,6 +95,13 @@ def station_lijst_eind():
         else:
             index = lijst.index(station_eind)
             land = index + 1
+            list = []
+            with open('inputdatabase.csv', 'a', newline='') as csvv:
+                writer = csv.writer(csvv, delimiter=';')
+                while True:
+                    list.extend([b])
+                    writer.writerow(list)
+                    break
             if lijst[land] != 'NL':
                 'Laat door middel van een pop-up zien dat het ingevoerde station niet buitenlands mag zijn.'
                 root = Tk()
@@ -124,7 +139,7 @@ def station_lijst_buitenland():
         if station not in lijst:
             'Laat door middel van een pop-up zien dat het geen geldig station is.'
             root = Tk()
-            root.title('NS Sprinter Ticketmachine')
+            root.title('NS Ticketmachine')
             root.geometry('800x600+500+250')
             root.configure(background='#003373')
             label = Label(root, text='The station you have entered is not valid.\n\nPlease try again.',
@@ -135,10 +150,17 @@ def station_lijst_buitenland():
         else:
             index = lijst.index(station)
             land = index + 1
+            list = []
+            with open('inputdatabase.csv', 'a', newline='') as csvv:
+                writer = csv.writer(csvv, delimiter=';')
+                while True:
+                    list.extend([c])
+                    writer.writerow(list)
+                    break
             if lijst[land] != 'NL':
                 'Laat door middel van een pop-up zien dat het ingevoerde station niet buitenlands mag zijn.'
                 root = Tk()
-                root.title('NS Sprinter Ticketmachine')
+                root.title('NS Ticketmachine')
                 root.geometry('800x600+500+250')
                 root.configure(background='#003373')
                 label = Label(root,
@@ -171,7 +193,7 @@ def station_lijst_buitenland_eind():
         if station_eind not in lijst:
             'Laat door middel van een pop-up zien dat het geen geldig station is.'
             root = Tk()
-            root.title('NS Sprinter Ticketmachine')
+            root.title('NS Ticketmachine')
             root.geometry('800x600+500+250')
             root.configure(background='#003373')
             label = Label(root, text='The station you have entered is not valid.\n\nPlease try again.',
@@ -182,10 +204,17 @@ def station_lijst_buitenland_eind():
         else:
             index = lijst.index(station_eind)
             land = index + 1
+            list = []
+            with open('inputdatabase.csv', 'a', newline='') as csvv:
+                writer = csv.writer(csvv, delimiter=';')
+                while True:
+                    list.extend([d])
+                    writer.writerow(list)
+                    break
             if lijst[land] == 'NL':
                 'Laat door middel van een pop-up zien dat het ingevoerde station alleen buitenlands mag zijn.'
                 root = Tk()
-                root.title('NS Sprinter Ticketmachine')
+                root.title('NS Ticketmachine')
                 root.geometry('800x600+500+250')
                 root.configure(background='#003373')
                 label = Label(root,
@@ -309,7 +338,7 @@ def buitenland():
 def interface_plannen():
     'Interface voor de optie plannen.'
     root = Tk()
-    root.title('NS Sprinter Ticketmachine')
+    root.title('NS Ticketmachine')
     root.geometry('1920x1080+0+0')
     root.configure(background='#ffac00')
 
@@ -320,7 +349,6 @@ def interface_plannen():
                    fg='#003373').pack()
     label2 = Label(root, text='Utrecht Centraal', background='#ffac00', font=('Frutiger', 30, 'bold'),
                    fg='#003373').place(x=10, y=10)
-    label3 = Label(root, text='Sprinter', font=('Futiger', 25, 'bold'), bg='#ffac00', fg='#003373').place(x=90, y=55)
     label4 = Label(root, text='From :', background='#ffac00', font=('Frutiger', 50, 'bold'),
                    fg='#003373').place(x=550, y=300)
     label5 = Label(root, text='To :', background='#ffac00', font=('Frutiger', 50, 'bold'),
@@ -347,7 +375,7 @@ def interface_plannen():
     def place_output():
         'Laat door middel van een pop-up de vertrektijden zien.'
         root = Tk()
-        root.title('NS Sprinter Ticketmachine')
+        root.title('NS Ticketmachine')
         root.geometry('800x600+500+250')
         root.configure(background='#003373')
         if len(interface_output) == 0:
@@ -379,7 +407,7 @@ def interface_nuweg():
     'Interface voor de optie nu weg.'
 
     root = Tk()
-    root.title('NS Sprinter Ticketmachine')
+    root.title('NS Ticketmachine')
     root.geometry('1920x1080+0+0')
     root.configure(background='#ffac00')
 
@@ -390,7 +418,6 @@ def interface_nuweg():
                    fg='#003373').pack()
     label2 = Label(root, text='Utrecht Centraal', background='#ffac00', font=('Frutiger', 30, 'bold'),
                    fg='#003373').place(x=10, y=10)
-    label3 = Label(root, text='Sprinter', font=('Futiger', 25, 'bold'), bg='#ffac00', fg='#003373').place(x=90, y=55)
     label4 = Label(root, text='To :', background='#ffac00', font=('Frutiger', 50, 'bold'),
                    fg='#003373').place(x=550, y=610)
     return_button = Button(root, text='Return', width=7, height=2, bg='#ffac00', command=root.destroy, font=('Frutiger', 30, 'bold'), fg='#003373').place(x=10, y=875)
@@ -438,7 +465,7 @@ def interface_nuweg():
 def interface_buitenland():
     'Interface voor de optie buitenland.'
     root = Tk()
-    root.title('NS Sprinter Ticketmachine')
+    root.title('NS Ticketmachine')
     root.geometry('1920x1080+0+0')
     root.configure(background='#ffac00')
 
@@ -449,7 +476,6 @@ def interface_buitenland():
                    fg='#003373').pack()
     label2 = Label(root, text='Utrecht Centraal', background='#ffac00', font=('Frutiger', 30, 'bold'),
                    fg='#003373').place(x=10, y=10)
-    label3 = Label(root, text='Sprinter', font=('Futiger', 25, 'bold'), bg='#ffac00', fg='#003373').place(x=90, y=55)
     label4 = Label(root, text='From :', background='#ffac00', font=('Frutiger', 50, 'bold'),
                    fg='#003373').place(x=550, y=300)
     label5 = Label(root, text='To :', background='#ffac00', font=('Frutiger', 50, 'bold'),
@@ -505,7 +531,7 @@ def interface_buitenland():
 root = Tk()
 'Beginscherm interface.'
 
-root.title('NS Sprinter Ticketmachine')
+root.title('NS Ticketmachine')
 root.geometry('1920x1080+0+0')
 root.configure(background='#ffac00')
 
@@ -513,7 +539,6 @@ heading = Label(root, text='Welcome to NS', background='#ffac00',  font=('Frutig
 
 label1 = Label(root, text='Please select your option', background='#ffac00', font=('Frutiger', 40, 'bold'), fg='#003373').pack()
 label2 = Label(root, text='Utrecht Centraal', background='#ffac00', font=('Frutiger', 30, 'bold'), fg='#003373').place(x=10, y=10)
-label3 = Label(root, text='Sprinter', font=('Futiger', 25, 'bold'), bg='#ffac00', fg='#003373').place(x=90, y=55)
 
 #NS logo
 canvas = Canvas(width=300, height=200, bg='#ffac00', highlightthickness=0)
@@ -538,7 +563,7 @@ def stationXML():
 
 
     root = Tk()
-    root.title('NS Sprinter Ticketmachine')
+    root.title('NS Ticketmachine')
     root.geometry('1920x1080+0+0')
     root.configure(background='#003373')
     labeltje = Label(root, text=', '.join(final_list), wraplength=1920, bg='#003373', fg='#ffac00', font=('Frutiger', 9, 'bold')).pack()

@@ -1,0 +1,23 @@
+Wat komt in zip bestand:
+
+Installeer Nieuwste pycharm (link erbij zetten)
+
+Foto NS logo met uitleg
+
+Link Github
+
+Eindverslag template ingevuld
+
+Met OBS screencast maken, wel zeggen dat de png gedownload moet worden en ns20 moet heten, laten zien wat er bij alles gebeurt, dus als je een getal of fout station intikt staat er dat je een valid station moet intikken
+of als je bij buitenland een nederlands station intikt, of als je bij plannen of nu weg een buitenlands station intikt. STATION GEBRUIKEN WAARBIJ GEEN SPRINTERS RIJDEN EN DAN LATEN ZIEN BIJ DE NS SITE DAT DE TIJDEN KLOPPEN
+OOK CSV BESTAND LATEN ZIEN EN ZEGGEN DAT ER REKENING IS GEHOUDEN MET FOUTE INPUTTEN.
+
+XML bestand zeggen dat ie niet word bijgevoegd omdat pycharm automatisch één aanmaakt.
+
+Mocht het nog niet geïnstalleerd zijn, installeer deze packages:
+Stappenplan hoe je moet installeren.
+requests
+xmltodict
+
+READ ME IN DE ZIPBESTAND MAAR OOK OP GITHUB
+
