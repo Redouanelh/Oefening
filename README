@@ -12,8 +12,10 @@
 
 - Now you should be able to run the code by pressing the top right green 'play' button, or just simply by pressing SHIFT+F10.
 
-- NOTE: If you press CTRL+F and search for 'inputdatabase.csv', Pycharm will automatically create a new .csv file called 'inputdatabase.csv' which will save
-        all the inputs given by the user. This means you don't need to worry about creating a new .csv file.
+- NOTE: If you press CTRL+F and search for 'inputdatabase.csv', you don't need to worry about creating this file.
+        Pycharm will automatically create a new .csv file called 'inputdatabase.csv' which will save all the inputs given by the user.
+
+- NOTE: This 'README.txt' file can also be found on Github: https://raw.githubusercontent.com/Redouanelh/Oefening/master/README
 
 
 V1c
