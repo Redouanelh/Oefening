@@ -1,23 +1,26 @@
-Wat komt in zip bestand:
+- Download and install the latest version of Pycharm : https://www.jetbrains.com/pycharm/ and follow the installation steps.
 
-Installeer Nieuwste pycharm (link erbij zetten)
+- Once you succesfully installed Pycharm, go to this link and copy the code: https://raw.githubusercontent.com/Redouanelh/Oefening/master/Miniproject%20Complete.py
+  Inside Pycharm, make a new Python file and paste this code inside.
 
-Foto NS logo met uitleg
+- Inside the code, press CTRL+F and search for gif1, in this line you should see file='ns20.png'.
+  Delete 'ns20.png' and place the directory of where you saved the 'NS PNG' we provided in this zip file.
 
-Link Github
+- Look at the top left and press 'File', then open 'settings'. Search for the Project you saved the code into, then click on 'Project Intepreter'.
+  Then at the right side, you should see a little '+' icon, press that. Now search for 'xmltodict' and install the package.
+  Do the same for the package 'requests'.
 
-Eindverslag template ingevuld
+- Now you should be able to run the code by pressing the top right green 'play' button, or just simply by pressing SHIFT+F10.
 
-Met OBS screencast maken, wel zeggen dat de png gedownload moet worden en ns20 moet heten, laten zien wat er bij alles gebeurt, dus als je een getal of fout station intikt staat er dat je een valid station moet intikken
-of als je bij buitenland een nederlands station intikt, of als je bij plannen of nu weg een buitenlands station intikt. STATION GEBRUIKEN WAARBIJ GEEN SPRINTERS RIJDEN EN DAN LATEN ZIEN BIJ DE NS SITE DAT DE TIJDEN KLOPPEN
-OOK CSV BESTAND LATEN ZIEN EN ZEGGEN DAT ER REKENING IS GEHOUDEN MET FOUTE INPUTTEN.
+- NOTE: If you press CTRL+F and search for 'inputdatabase.csv', Pycharm will automatically create a new .csv file called 'inputdatabase.csv' which will save
+        all the inputs given by the user. This means you don't need to worry about creating a new .csv file.
 
-XML bestand zeggen dat ie niet word bijgevoegd omdat pycharm automatisch één aanmaakt.
 
-Mocht het nog niet geïnstalleerd zijn, installeer deze packages:
-Stappenplan hoe je moet installeren.
-requests
-xmltodict
+V1c
+GROEP 3
 
-READ ME IN DE ZIPBESTAND MAAR OOK OP GITHUB
-
+Redouan
+Arutun
+Hakan
+Mark
+Tim
